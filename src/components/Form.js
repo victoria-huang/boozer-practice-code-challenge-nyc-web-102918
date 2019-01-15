@@ -1,30 +1,54 @@
 import React, { Component } from 'react'
 
 class Form extends Component {
+  state = {
+    drinkName: '',
+    imageUrl: ''
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+    this.props.addCocktail(this.state)
+
+    this.setState({
+      drinkName: '',
+      imageUrl: ''
+    })
+  }
+
+  // handleImageChange = (event) => {
+  //   this.setState({
+  //     imageUrl: event.target.value
+  //   })
+  // }
+
   render(){
     return (
-      <form>
+      <form onSubmit={this.handleSubmit}>
         <h3>Create a Cocktail</h3>
 
         <p>Name</p>
-        <input type="text"/>
+        <input
+          name='drinkName'
+          onChange={this.handleChange}
+          type="text"
+          value={this.state.drinkName}
+        />
 
-        <p>Description</p>
-        <input type="text"/>
+        <p>Image Url</p>
+        <input
+          name='imageUrl'
+          onChange={this.handleChange}
+          type="text"
+          value={this.state.imageUrl}
+        />
 
-        <p>Instructions</p>
-        <input type="text"/>
-
-        <h3>Proportions</h3>
-        <div className="container">
-          <p>Ingredient Name<br/>
-          <input type="text"/>
-          </p>
-
-          <p>Quantity<br/>
-          <input type="text"/>
-          </p>
-        </div>
 
         <p><button> + </button></p>
 
